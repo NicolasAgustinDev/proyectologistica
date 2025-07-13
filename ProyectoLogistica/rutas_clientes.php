@@ -42,8 +42,8 @@ $clientes = $stmt->get_result();
       </div>
 
     <!-- Botón Mapa -->
-    <button class="btn btn-outline-light btn-sm" title="Mostrar mapa" onclick="scrollToMapa()">
-        <i class="fas fa-map-marker-alt"></i>
+    <button class="btn btn-sm" title="Mostrar mapa" onclick="scrollToMapa()">
+        <img src="imagenes/mapa.png" width="40">
     </button>
 
     <!-- Botón responsive -->
