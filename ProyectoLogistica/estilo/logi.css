@@ -1,0 +1,25 @@
+/* NAVBAR  */
+.navbar-custom {
+  background-color: #343a40;
+  color: white;
+}
+
+/* Mapa */
+#mapa {
+  height: 350px;
+  width: 100%;
+  display: block;
+}
+
+/* Logo  */
+.rounded-logo {
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+  border-radius: 70%;
+}
+
+/* Grupo del input de búsqueda */
+.search-group {
+  width: 300px;
+}

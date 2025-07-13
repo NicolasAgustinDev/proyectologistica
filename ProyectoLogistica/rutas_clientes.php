@@ -1,0 +1,84 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit();
+}
+require_once "conexion.php";
+
+$id_ruta = $_SESSION['id_ruta'];
+$sql = "SELECT nombre, direccion FROM clientes WHERE id_ruta = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_ruta);
+$stmt->execute();
+$clientes = $stmt->get_result();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logística</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR CON IMAGEN -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo como imagen -->
+    <a class="navbar-brand d-flex align-items-center" href="index.php">
+      <img src="imagenes/logo.png" alt="Logo" style="height: 40px; width: auto;" class="me-2">
+      <span>Logística</span>
+    </a>
+    <!-- Buscador -->
+    <div class="d-flex align-items-center gap-2">
+      <div class="input-group search-group">
+        <input type="text" id="busquedaDireccion" class="form-control form-control-sm" placeholder="Buscar dirección...">
+        <button class="btn btn-outline-light btn-sm" id="btnBuscar">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+    <!-- Botón Mapa -->
+    <button class="btn btn-outline-light btn-sm" title="Mostrar mapa" onclick="scrollToMapa()">
+        <i class="fas fa-map-marker-alt"></i>
+    </button>
+
+    <!-- Botón responsive -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+   <!-- Menú desplegable  -->
+      <div class="dropdown">
+        <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="clientes.php">Clientes</a></li>
+          <li><a class="dropdown-item" href="servicios.php">Servicios</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MAPA -->
+<div id="mapa"></div>
+
+<!-- CONTENIDO -->
+<div class="container mt-5">
+  <div class="text-center">
+    <h1 class="mb-3">Bienvenido a Logistic Company</h1>
+    <p class="lead">Gestión integral de transporte y rutas.</p>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
+<script src="javaScript/mapa.js"></script>
+</body>
+</html>
