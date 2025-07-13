@@ -65,8 +65,6 @@ $clientes = $stmt->get_result();
   </div>
 </nav>
 
-<!-- MAPA -->
-<div id="mapa"></div>
 
 <!-- CONTENIDO -->
 <div class="container mt-5">
@@ -76,9 +74,24 @@ $clientes = $stmt->get_result();
   </div>
 </div>
 
+<!-- MAPA -->
+<div id="mapa">
+  <center>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105073.27471185336!2d-58.515871658472946!3d-34.61579593254165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca3b4ef90cbd%3A0xa0b3812e88e88e87!2sBuenos%20Aires%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1752445403848!5m2!1ses!2sar" 
+      width="700" 
+      height="470" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </center>
+</div>
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>-->
 <script src="javaScript/mapa.js"></script>
 </body>
 </html>
