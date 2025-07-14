@@ -13,7 +13,6 @@ $stmt->bind_param("i", $id_ruta);
 $stmt->execute();
 $clientes = $stmt->get_result();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -59,6 +58,7 @@ $clientes = $stmt->get_result();
         <ul class="dropdown-menu dropdown-menu-end">
           <li><a class="dropdown-item" href="clientes.php">Clientes</a></li>
           <li><a class="dropdown-item" href="servicios.php">Servicios</a></li>
+          <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
         </ul>
       </div>
     </div>
