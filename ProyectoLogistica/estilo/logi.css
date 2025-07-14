@@ -6,10 +6,11 @@
 
 /* Mapa */
 #mapa {
-  height: 350px;
-  width: 100%;
-  display: block;
+  display: none;
+  transition: all 0.4s ease-in-out;
+  
 }
+
 
 /* Logo  */
 .rounded-logo {

@@ -20,6 +20,9 @@ $clientes = $stmt->get_result();
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Logística</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="estilo/logi.css">
+
 </head>
 <body>
 
@@ -36,13 +39,13 @@ $clientes = $stmt->get_result();
       <div class="input-group search-group">
         <input type="text" id="busquedaDireccion" class="form-control form-control-sm" placeholder="Buscar dirección...">
         <button class="btn btn-outline-light btn-sm" id="btnBuscar">
-          <i class="fas fa-search"></i>
+          <i class="fas fa-search fa-sm"></i>
         </button>
       </div>
 
     <!-- Botón Mapa -->
-    <button class="btn btn-sm" title="Mostrar mapa" onclick="scrollToMapa()">
-        <img src="imagenes/mapa.png" width="40">
+    <button class="btn btn-sm" title="Mostrar mapa" id="btnMostrarMapa">
+        <i class="fas fa-map-marked-alt text-white"></i>
     </button>
 
     <!-- Botón responsive -->
