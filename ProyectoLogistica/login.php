@@ -11,7 +11,7 @@
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
 
-<div class="card shadow p-4" style="min-width: 350px;">
+<div class="card shadow p-4" style="width: 350px;">
   <img src="imagenes/logo.png" alt="">
  
   <?php if (isset($_SESSION['error'])): ?>
