@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <title>Login - Logística</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="estilo/logi.css">
+  <link rel="stylesheet" href="estilo/login.css">
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
 

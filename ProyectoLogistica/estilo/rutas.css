@@ -1,0 +1,46 @@
+#btnComenzarRuta {
+    background-color: #94989c; 
+    border: none;
+  }
+  #btnComenzarRuta:hover {
+    background-color: #23272b;
+  }
+  .menu-opciones {
+    min-width: 200px;
+  }
+  .contenido {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #343a40;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f1f1;
+    }
+
+    .btn-ruta {
+      width: 100%;
+    }
+
+    .direccion-texto {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
