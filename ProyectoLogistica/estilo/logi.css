@@ -6,11 +6,10 @@
 
 /* Mapa */
 #mapa {
-  display: none;
-  transition: all 0.4s ease-in-out;
-  
+  height: 350px;
+  width: 100%;
+  display: block;
 }
-
 
 /* Logo  */
 .rounded-logo {
@@ -24,4 +23,3 @@
 .search-group {
   width: 300px;
 }
-
