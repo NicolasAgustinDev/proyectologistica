@@ -6,8 +6,8 @@ if (!isset($_SESSION['usuario'])) {
 }
 require_once "conexion.php";
 
-$nombre_conductor = "samanta";
-$apellido_conductor = "ortega";
+$nombre_conductor = "nicolas";
+$apellido_conductor = "garcía";
 $hay_planes_disponibles = false;
 ?>
 
@@ -31,10 +31,10 @@ $hay_planes_disponibles = false;
     </div>
 
     <div class="bottom-half">
-        <a href="rutas_clientes.php" class="btn btn-primary btn-lg btn-planes">Buscar planes</a>
-        <?php if (!$hay_planes_disponibles): ?>
-            <p class="planes-msg">No tienes planes disponibles</p>
-        <?php endif; ?>
+        <a href="rutas_clientes.php" class="btn btn-primary btn-lg btn-planes">Buscar planes</a><br><br>
+        <p><strong>Distribución: ".."</strong></p>
+        <p><strong>Fecha: 21-09-2025</strong></p>
+        <p><strong>Camión: ABC123</strong></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
