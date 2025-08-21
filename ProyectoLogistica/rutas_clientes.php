@@ -22,6 +22,8 @@ $clientes = $stmt->get_result();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="estilo/rutas.css">
+  <script src="javaScript/mapa.js"></script>
+  <script src="javaScript/buscador.js"></script>
 </head>
 <body>
 
@@ -140,9 +142,7 @@ $clientes = $stmt->get_result();
     }
   });
 
-  
-
 </script>
-<script src="javaScript/mapa.js"></script>
+
 </body>
 </html>
