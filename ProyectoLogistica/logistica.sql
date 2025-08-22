@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2025 a las 20:11:08
+-- Tiempo de generación: 21-08-2025 a las 06:45:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,99 +24,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Estructura de tabla para la tabla `viajes`
 --
 
-CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
-  `id_ruta` int(11) DEFAULT NULL
+CREATE TABLE `viajes` (
+  `id_viaje` int(11) NOT NULL,
+  `id_ruta` int(11) NOT NULL,
+  `id_vehiculo` int(11) NOT NULL,
+  `id_chofer` int(11) NOT NULL,
+  `fecha_salida` datetime NOT NULL,
+  `fecha_llegada` datetime NOT NULL,
+  `estado` int(11) NOT NULL,
+  `observaciones` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`id`, `nombre`, `direccion`, `id_ruta`) VALUES
-(1, 'MaxiKiosco El Refugio', 'Tomás Espora 2894,Burzaco,', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `rutas`
---
-
-CREATE TABLE `rutas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `usuario` varchar(50) DEFAULT NULL,
-  `clave` varchar(50) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `apellido` text NOT NULL,
-  `id_ruta` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `id_ruta`) VALUES
-(1, 'sam', '1234', 'samanta', '', 1234);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `clientes`
+-- Indices de la tabla `viajes`
 --
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `rutas`
---
-ALTER TABLE `rutas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `viajes`
+  ADD PRIMARY KEY (`id_viaje`),
+  ADD KEY `ruta3` (`id_ruta`),
+  ADD KEY `vehiculo` (`id_vehiculo`),
+  ADD KEY `chofer` (`id_chofer`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `clientes`
+-- AUTO_INCREMENT de la tabla `viajes`
 --
-ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `viajes`
+  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `rutas`
+-- Restricciones para tablas volcadas
 --
-ALTER TABLE `rutas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- Filtros para la tabla `viajes`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `viajes`
+  ADD CONSTRAINT `chofer` FOREIGN KEY (`id_chofer`) REFERENCES `choferes` (`id_chofer`),
+  ADD CONSTRAINT `ruta3` FOREIGN KEY (`id_ruta`) REFERENCES `rutas` (`id_ruta`),
+  ADD CONSTRAINT `vehiculo` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

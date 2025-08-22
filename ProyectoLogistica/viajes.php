@@ -1,4 +1,5 @@
 <?php
+require_once "conexion.php";
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
@@ -63,19 +64,7 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </nav>
-        <h1>Clientes</h1>
-        <table id="clientes" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id cliente</th>
-                    <th>Nombre</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
-                    <th>Ruta</th>
-                </tr>
-            </thead>
-
-        </table>
+        <h1>Viajes</h1>
 
 
 

@@ -63,18 +63,16 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </nav>
-        <h1>Clientes</h1>
-        <table id="clientes" class="display" style="width:100%">
+        <h1>Vehiculos</h1>
+        <table id="vehiculos" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Id cliente</th>
-                    <th>Nombre</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
-                    <th>Ruta</th>
+                    <th>Id Vehiculo</th>
+                    <th>Patente</th>
+                    <th>Tipo</th>
+                    <th>Capacidad kg</th>
                 </tr>
             </thead>
-
         </table>
 
 
