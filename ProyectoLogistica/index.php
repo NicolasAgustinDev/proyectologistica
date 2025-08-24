@@ -29,22 +29,18 @@ $hay_planes_disponibles = false;
             <h1>Panel de Control</h1>
         </div>
     </div>
-    <div class="nav">
-        <a class="nav-link" href="Viajes.php">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Viajes
+    <div class="d-flex flex-column p-3 bg-dark text-white" style="height: 100vh; width: 220px;">
+        <a href="Viajes.php" class="nav-link text-white d-flex align-items-center mb-2">
+            <i class="fas fa-route me-2"></i> Viajes
         </a>
-        <a class="nav-link" href="clientes.php">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Clientes
+        <a href="clientes.php" class="nav-link text-white d-flex align-items-center mb-2">
+            <i class="fas fa-users me-2"></i> Clientes
         </a>
-        <a class="nav-link" href="choferes.php">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Choferes
+        <a href="choferes.php" class="nav-link text-white d-flex align-items-center mb-2">
+            <i class="fas fa-id-card me-2"></i> Choferes
         </a>
-        <a class="nav-link" href="vehiculos.php">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Vehiculos
+        <a href="vehiculos.php" class="nav-link text-white d-flex align-items-center mb-2">
+            <i class="fas fa-truck me-2"></i> Vehículos
         </a>
     </div>
 

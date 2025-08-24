@@ -13,9 +13,8 @@ class choferes{
         echo json_encode($respuesta);
     }
 }
-if(!isset($_method=="POST")){
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $respuesta = new choferes();
     $respuesta -> mostrarchoferes();
 }
-
 ?>

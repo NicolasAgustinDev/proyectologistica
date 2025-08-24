@@ -12,8 +12,9 @@ if (!isset($_SESSION['usuario'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">           
-        <title>Editar Viajes</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdn.datatables.net/2.3.3/css/dataTables.dataTables.min.css">         
+        <title>Viajes</title>
     </head>
     <body>
         <!-- NAVBAR -->
@@ -66,10 +67,14 @@ if (!isset($_SESSION['usuario'])) {
         </nav>
         <h1>Viajes</h1>
 
-
-
-        <!-- Scripts -->
+        <!-- 1. jQuery primero -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Data tables -->
+        <script src="//cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+        <!-- Fontawesome -->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script>
             const btnOpciones = document.getElementById('btnOpciones');
             const menuOpciones = document.getElementById('menuOpciones');
