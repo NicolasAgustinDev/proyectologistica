@@ -2,7 +2,7 @@
 require_once("../controladores/choferes.controlador.php");
 require_once("../modelo/choferes.modelo.php");
 class choferes{
-    public $id;
+    public $id_chofer;
     public $nombre;
     public $apellido;
     public $telefono;
@@ -12,9 +12,35 @@ class choferes{
         $respuesta = controladorchoferes::ctrmostrarchoferes();
         echo json_encode($respuesta);
     }
+    public function agregarchoferes(){
+        $respuesta = controladorchoferes::ctragregarchoferes($this -> nombre,$this -> apellido,$this -> telefono,$this -> licencia);
+        echo json_encode($respuesta);
+    }
+    public function modificarchoferes(){
+        $respuesta = controladorchoferes::ctrmodificarchoferes($this -> id_chofer,$this -> nombre,$this -> apellido,$this -> telefono,$this -> licencia);
+        echo json_encode($respuesta);
+    }
 }
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
+if(!isset($_POST["accion"])){
     $respuesta = new choferes();
     $respuesta -> mostrarchoferes();
+}else{
+    if($_POST["accion"]=="registrar"){
+        $registrar = new choferes();
+        $registrar -> nombre =$_POST["nombre"];
+        $registrar -> apellido =$_POST["apellido"];
+        $registrar -> telefono =$_POST["telefono"];
+        $registrar -> licencia =$_POST["licencia"];
+        $registrar -> agregarchoferes();
+    }
+    if($_POST["accion"]=="modificar"){
+        $modificar = new choferes();
+        $modificar -> id_chofer =$_POST["id_chofer"];
+        $modificar -> nombre =$_POST["nombre"];
+        $modificar -> apellido =$_POST["apellido"];
+        $modificar -> telefono =$_POST["telefono"];
+        $modificar -> licencia =$_POST["licencia"];
+        $modificar -> modificarchoferes();
+    }
 }
 ?>

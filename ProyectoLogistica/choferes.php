@@ -93,7 +93,7 @@ if (!isset($_SESSION['usuario'])) {
                     <div>
                         <form>
                             <div>
-                                <input type="hidden" id="id" name="id">
+                                <input type="hidden" id="id_chofer" name="id_chofer">
                                 <div class="mb-3">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
@@ -146,6 +146,7 @@ if (!isset($_SESSION['usuario'])) {
                 }
             });
             $(document).ready(function(){
+                let accion = "";
                 let tabla = new DataTable('#choferes', {
                     dom: 'Bfrtip',
                     language: {
@@ -176,10 +177,71 @@ if (!isset($_SESSION['usuario'])) {
                                 `
                             }
                         }
-                    ],
-                    
+                    ]
+                })
+                $('.btn-agregar-chofer').on('click',function(){
+                    accion = "registrar";
+                })
 
-                });
+                $('#choferes, tbody').on('click','.btneditar',function(){
+                    let tabla = $('#choferes').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data()
+                    accion = "modificar";
+
+                    $("#id_chofer").val(data["id_chofer"]);
+                    $("#nombre").val(data["nombre"]);
+                    $("#apellido").val(data["apellido"]);
+                    $("#telefono").val(data["telefono"]);
+                    $("#licencia").val(data["licencia"]);
+                })
+
+                $('#choferes, tbody').on('click','.btneliminar',function(){
+                
+                })
+
+
+
+                
+
+                //Guardar la informacion desde la ventana modal
+                $('#btnguardar').on('click',function(){
+                    let nombre = $("#nombre").val(),
+                        apellido = $("#apellido").val(),
+                        telefono = $("#telefono").val(),
+                        licencia = $("#licencia").val()
+                        id_chofer = $("#id_chofer").val()
+
+                    let datos = new FormData();
+                    datos.append('id_chofer',id_chofer);
+                    datos.append('nombre',nombre)
+                    datos.append('apellido',apellido);
+                    datos.append('telefono',telefono);
+                    datos.append('licencia',licencia);
+                    datos.append('accion',accion);
+                    if (nombre === '' || apellido === '' || telefono === '' || licencia === '') {
+                        alert('Por favor, completa todos los campos.');
+                        return;
+                    }
+                    $.ajax({
+                        url: "ajaxs/choferes.ajax.php",
+                        method: "POST",
+                        data:datos,
+                        cache:false,
+                        contentType: false,
+                        processData: false,
+                        success:function(respuesta){
+                            console.log(respuesta);
+                            document.activeElement.blur();
+                            $("#miModal").modal('hide');
+                            $('#choferes').DataTable().ajax.reload();
+                            $("#nombre").val(""),
+                            $("#apellido").val(""),
+                            $("#telefono").val(""),
+                            $("#licencia").val("");
+                        }
+                    })
+
+                })         
             })
         </script>
     </body>
