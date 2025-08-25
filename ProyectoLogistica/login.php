@@ -35,17 +35,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   </head>
   <body class="bg-light d-flex justify-content-center align-items-center vh-100">
 
-    <div class="card shadow p-4" style="width: 350px;">
+    <div class="card shadow p-4" style="width: 350px; background-color: #0a0e1a ;">
       <img src="imagenes/logo.png" alt="">
 
       <form method="POST" action="login.php">
         <div class="mb-3">
+          <label for="usuario" class="form-label text-light" >Usuario</label>
           <input type="text" id="usuario" name="usuario" class="form-control" required>
-          <label for="usuario" class="form-label">Usuario</label>
         </div>
         <div class="mb-3">
+          <label for="clave" class="form-label text-light">Contraseña</label>
           <input type="password" id="clave" name="clave" class="form-control" required>
-          <label for="clave" class="form-label">Contraseña</label>
         </div>
         <button type="submit" class="btn btn-primary w-100">Iniciar Sesion</button>
       </form>
