@@ -1,27 +1,30 @@
 
+
 <?php require_once "sectores/parte_superior.php" ?>
 
-        <h1>Vehiculos</h1>
-        <div class="btn-agregar-vehiculos">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar Vehiculo</button>
+
+
+<h1>Clientes</h1>
+        <div class="btn-agregar-cliente">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal" >Agregar Cliente</button>
         </div>
-        <table id="vehiculos" class="display" style="width:100%">
+        <table id="clientes" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Id.Vehículo</th>
-                    <th>Patente</th>
-                    <th>Tipo</th>
-                    <th>Capacidad (Kg)</th>
+                    <th>Id cliente</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Ruta</th>
                 </tr>
             </thead>
         </table>
-
         <!-- MODAL -->
         <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Vehículo</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cliente</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 <div class="modal-body">
@@ -30,16 +33,20 @@
                             <div>
                                 <input type="hidden" id="id" name="id">
                                 <div class="mb-3">
-                                    <label for="patente">Patente: </label>
-                                    <input type="text" id="patente" name="patente" placeholder="Ingrese la patente" required>
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tipo">Tipo: </label>
-                                    <input type="text" id="tipo" name="tipo" placeholder="Ingrese el tipo" required>
+                                    <label for="direccion">Direccion</label>
+                                    <input type="text" id="direccion" name="direccion" placeholder="Ingrese la Direccion " required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="capacidad">Capacidad (Kg): </label>
-                                    <input type="number" id="capacidad" name="capacidad" placeholder="Ingrese la capacidad del vehiculo " required>
+                                    <label for="telefono">Telefono:</label>
+                                    <input type="number" id="telefono" name="telefono" placeholder="Ingrese el telefono " required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ruta">Ruta</label>
+                                    <input type="text" id="ruta" name="ruta" placeholder="Ingrese la Ruta " required>
                                 </div>
                             </div>
                         </form>
@@ -53,6 +60,9 @@
                 </div>
             </div>
         </div>
+</div>
+</div>
+</div>
 
 
 
@@ -64,9 +74,14 @@
         <script src="//cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
         <!-- Fontawesome -->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script>
+
+        
+
+<script>
+            
+
             $(document).ready(function(){
-                let tabla = new DataTable('#vehiculos', {
+                let tabla = new DataTable('#clientes', {
                     dom: 'Bfrtip',
                     language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
@@ -75,21 +90,22 @@
                     ordering:'false',
                     paging:'false',
                     ajax:{
-                        url:'ajaxs/vehiculos.ajax.php',
+                        url:'ajaxs/clientes.ajax.php',
                         dataSrc:''
                     },
                     columns:[
-                        {data: 'id_vehiculo'},
-                        {data:'patente'},
-                        {data:'tipo'},
-                        {data:'capacidad_kg'},
+                        {data: 'id_cliente'},
+                        {data:'nombre'},
+                        {data:'direccion'},
+                        {data:'telefono'},
+                        {data:'id_ruta'},
                         {
                             data:null,
                             render:function(data,type,row){
                                 return `<button class="btn btn-principal btneditar" data-bs-target="#miModal" data-bs-toggle="modal">
                                 <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class ="btn btn-danger btneliminar">
+                            .   <button class ="btn btn-danger btneliminar">
                                 <i class="fa-solid fa-trash"></i>
                                 </button>
                                 `
@@ -100,7 +116,7 @@
             })
 
 
-            
         </script>
+
 
 <?php require_once "sectores/parte_inferior.php" ?>
