@@ -91,7 +91,7 @@ if (!isset($_SESSION['usuario'])) {
                     <div>
                         <form>
                             <div>
-                                <input type="hidden" id="id" name="id">
+                                <input type="hidden" id="id_cliente" name="id_cliente">
                                 <div class="mb-3">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
