@@ -20,6 +20,10 @@ class choferes{
         $respuesta = controladorchoferes::ctrmodificarchoferes($this -> id_chofer,$this -> nombre,$this -> apellido,$this -> telefono,$this -> licencia);
         echo json_encode($respuesta);
     }
+    public function eliminarchoferes(){
+        $respuesta = controladorchoferes::ctreliminarchoferes($this -> id_chofer);
+        echo json_encode($respuesta);
+    }
 }
 if(!isset($_POST["accion"])){
     $respuesta = new choferes();
@@ -41,6 +45,11 @@ if(!isset($_POST["accion"])){
         $modificar -> telefono =$_POST["telefono"];
         $modificar -> licencia =$_POST["licencia"];
         $modificar -> modificarchoferes();
+    }
+    if($_POST["accion"]=="eliminar"){
+        $eliminar = new choferes();
+        $eliminar -> id_chofer =$_POST["id_chofer"];
+        $eliminar -> eliminarchoferes();
     }
 }
 ?>

@@ -13,5 +13,9 @@ class controladorchoferes{
         $respuesta = modelochoferes::mdlmodificarchoferes($id_chofer,$nombre,$apellido,$telefono,$licencia);
         return $respuesta;
     }
+    static public function ctreliminarchoferes($id_chofer){
+        $respuesta = modelochoferes::mdleliminarchoferes($id_chofer);
+        return $respuesta;
+    }
 }
 ?>

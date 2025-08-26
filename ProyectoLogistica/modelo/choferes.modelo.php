@@ -34,6 +34,17 @@ class modelochoferes{
             echo "El chofer no se pudo actualizar";
         }
     }
+    static public function mdleliminarchoferes($id_chofer){
+        $st= conexion::conectar() -> prepare("DELETE FROM choferes WHERE id_chofer=:id_chofer");
+        $st -> bindParam(":id_chofer",$id_chofer,PDO::PARAM_INT);
+
+        if($st -> execute()){
+            echo "El chofer fue eliminado correctamente";
+        }else{
+            echo "El chofer no se pudo eliminar";
+        }
+
+    }
 }
 
 ?>

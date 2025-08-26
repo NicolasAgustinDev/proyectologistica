@@ -60,6 +60,8 @@
 
         <!-- 1. jQuery primero -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- SweetAlert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Data tables -->
@@ -119,7 +121,40 @@
                 })
 
                 $('#choferes, tbody').on('click','.btneliminar',function(){
-                
+                    let tabla = $('#choferes').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data()
+                    let id_chofer = data ['id_chofer'];
+
+                    let datos = new FormData();
+                    datos.append('id_chofer',id_chofer)
+                    datos.append('accion','eliminar');
+
+                    Swal.fire({
+                        title: "Confirmacion?",
+                        text: "Estas seguro que deseas eliminar este Chofer!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si",
+                        cancelButtonText: "No, cancelar!"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                                $.ajax({
+                                    url: "ajaxs/choferes.ajax.php",
+                                    method: "POST",
+                                    data:datos,
+                                    cache:false,
+                                    contentType: false,
+                                    processData: false,
+                                    success:function(respuesta){
+                                        console.log(respuesta);
+                                        $('#choferes').DataTable().ajax.reload();
+                                    }
+                                })
+                        }else{
+                        }
+                    });
                 })
 
 
