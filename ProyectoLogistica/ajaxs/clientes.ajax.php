@@ -12,6 +12,7 @@ class clientes{
         $respuesta = controladorclientes::ctrmostrarclientes();
         echo json_encode($respuesta);
     }
+    
 }
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $respuesta = new clientes();

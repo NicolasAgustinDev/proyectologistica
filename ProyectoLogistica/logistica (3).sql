@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2025 a las 20:27:09
+-- Tiempo de generación: 27-08-2025 a las 02:17:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,8 +40,7 @@ CREATE TABLE `choferes` (
 --
 
 INSERT INTO `choferes` (`id_chofer`, `nombre`, `apellido`, `telefono`, `licencia`) VALUES
-(1, 'Nicolas', 'Diaz', '1167258928', 'C1'),
-(2, 'Teo', 'Fernandez', '1199883344', 'C1');
+(1, 'Nicolas', 'Garcia', '1167258928', 'C1');
 
 -- --------------------------------------------------------
 
@@ -63,6 +62,44 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id_cliente`, `nombre`, `direccion`, `telefono`, `id_ruta`) VALUES
 (1, 'Maxikiosco El Gallego', 'Av. Republica 2230 Longchamps', '1199237845', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id_pedido` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `fecha_pedido` datetime NOT NULL,
+  `estado` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos_productos`
+--
+
+CREATE TABLE `pedidos_productos` (
+  `id_pedido` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id_producto` int(11) NOT NULL,
+  `nombre` text NOT NULL,
+  `descripcion` text NOT NULL,
+  `peso` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -153,6 +190,20 @@ CREATE TABLE `viajes` (
   `observaciones` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `viaje_productos`
+--
+
+CREATE TABLE `viaje_productos` (
+  `id_viaje` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -169,6 +220,26 @@ ALTER TABLE `choferes`
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`),
   ADD KEY `ruta` (`id_ruta`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id_pedido`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
+-- Indices de la tabla `pedidos_productos`
+--
+ALTER TABLE `pedidos_productos`
+  ADD KEY `pedidos` (`id_pedido`),
+  ADD KEY `producto` (`id_producto`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_producto`);
 
 --
 -- Indices de la tabla `rutas`
@@ -206,6 +277,15 @@ ALTER TABLE `viajes`
   ADD KEY `chofer` (`id_chofer`);
 
 --
+-- Indices de la tabla `viaje_productos`
+--
+ALTER TABLE `viaje_productos`
+  ADD KEY `viaje` (`id_viaje`),
+  ADD KEY `pedido` (`id_pedido`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `cliente99` (`id_cliente`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -220,6 +300,18 @@ ALTER TABLE `choferes`
 --
 ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rutas`
@@ -262,6 +354,19 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `ruta` FOREIGN KEY (`id_ruta`) REFERENCES `rutas` (`id_ruta`);
 
 --
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
+
+--
+-- Filtros para la tabla `pedidos_productos`
+--
+ALTER TABLE `pedidos_productos`
+  ADD CONSTRAINT `pedidos` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
+  ADD CONSTRAINT `producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
+
+--
 -- Filtros para la tabla `rutas_paradas`
 --
 ALTER TABLE `rutas_paradas`
@@ -275,6 +380,15 @@ ALTER TABLE `viajes`
   ADD CONSTRAINT `chofer` FOREIGN KEY (`id_chofer`) REFERENCES `choferes` (`id_chofer`),
   ADD CONSTRAINT `ruta3` FOREIGN KEY (`id_ruta`) REFERENCES `rutas` (`id_ruta`),
   ADD CONSTRAINT `vehiculo` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`);
+
+--
+-- Filtros para la tabla `viaje_productos`
+--
+ALTER TABLE `viaje_productos`
+  ADD CONSTRAINT `cliente99` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+  ADD CONSTRAINT `id_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
+  ADD CONSTRAINT `pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
+  ADD CONSTRAINT `viaje` FOREIGN KEY (`id_viaje`) REFERENCES `viajes` (`id_viaje`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

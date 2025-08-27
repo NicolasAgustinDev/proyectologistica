@@ -110,7 +110,7 @@
 
                 $('#choferes, tbody').on('click','.btneditar',function(){
                     let tabla = $('#choferes').DataTable();
-                    let data =tabla.row($(this).parents('tr')).data()
+                    let data =tabla.row($(this).parents('tr')).data();
                     accion = "modificar";
 
                     $("#id_chofer").val(data["id_chofer"]);
@@ -126,7 +126,7 @@
                     let id_chofer = data ['id_chofer'];
 
                     let datos = new FormData();
-                    datos.append('id_chofer',id_chofer)
+                    datos.append('id_chofer',id_chofer);
                     datos.append('accion','eliminar');
 
                     Swal.fire({
@@ -166,12 +166,12 @@
                     let nombre = $("#nombre").val(),
                         apellido = $("#apellido").val(),
                         telefono = $("#telefono").val(),
-                        licencia = $("#licencia").val()
+                        licencia = $("#licencia").val(),
                         id_chofer = $("#id_chofer").val()
 
                     let datos = new FormData();
                     datos.append('id_chofer',id_chofer);
-                    datos.append('nombre',nombre)
+                    datos.append('nombre',nombre);
                     datos.append('apellido',apellido);
                     datos.append('telefono',telefono);
                     datos.append('licencia',licencia);
