@@ -42,8 +42,8 @@
                                     <input type="number" id="telefono" name="telefono" placeholder="Ingrese el teléfono " required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ruta">Ruta: </label>
-                                    <input type="text" id="ruta" name="ruta" placeholder="Ingrese la ruta " required>
+                                    <label for="id_ruta">Ruta</label>
+                                    <select id="id_ruta" name="id_ruta" class="form-control" required></select>
                                 </div>
                             </div>
                         </form>
@@ -67,23 +67,8 @@
         <!-- Fontawesome -->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script>
-            /*
-            const btnOpciones = document.getElementById('btnOpciones');
-            const menuOpciones = document.getElementById('menuOpciones');
-            
-
-            btnOpciones.addEventListener('click', () => {
-                menuOpciones.classList.toggle('d-none');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!btnOpciones.contains(e.target) && !menuOpciones.contains(e.target)) {
-                menuOpciones.classList.add('d-none');
-                }
-            }); 
-            */
-
             $(document).ready(function(){
+                let accion = "";
                 let tabla = new DataTable('#clientes', {
                     dom: 'Bfrtip',
                     language: {
@@ -101,7 +86,7 @@
                         {data:'nombre'},
                         {data:'direccion'},
                         {data:'telefono'},
-                        {data:'id_ruta'},
+                        {data:'ruta'},
                         {
                             data:null,
                             render:function(data,type,row){
@@ -116,6 +101,72 @@
                         }
                     ]
                 });
+                $('#miModal').on('shown.bs.modal',function(){
+                cargarRutas();
+                })
+                function cargarRutas(){
+                    $.ajax({
+                        url: 'ajaxs/rutas.ajax.php',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            let opciones = '<option value="">Seleccione un ruta</option>';
+                            data.forEach(function(rutas){
+                                opciones += `<option value="${rutas.id_ruta}">${rutas.ruta}</option>`;
+                            });
+                            $('#id_ruta').html(opciones);
+                        },
+                        error: function() {
+                            console.error('Error al cargar las rutas:', error);
+                            alert('Error al cargar los puestos.');
+                        }
+                    });
+                }
+                $('.btn-agregar-cliente').on('click',function(){
+                    accion = "registrar";
+                })
+                $('#btnguardar').on('click',function(){
+                    let nombre = $("#nombre").val(),
+                        direccion = $("#direccion").val(),
+                        telefono = $("#telefono").val(),
+                        id_ruta = $("#id_ruta").val(),
+                        id_cliente = $("#id_cliente").val()
+
+                    let datos = new FormData;
+                    datos.append('id_cliente',id_cliente);
+                    datos.append('nombre',nombre);
+                    datos.append('direccion',direccion);
+                    datos.append('telefono',telefono);
+                    datos.append('id_ruta',id_ruta);
+                    datos.append('accion',accion);
+                    if (nombre === '' || direccion === '' || telefono === '' || id_ruta === '') {
+                        alert('Por favor, completa todos los campos.');
+                        return;
+                    }
+                    $.ajax({
+                        url: "ajaxs/clientes.ajax.php",
+                        method: "POST",
+                        data:datos,
+                        cache:false,
+                        contentType: false,
+                        processData: false,
+                        success:function(respuesta){
+                            console.log(respuesta);
+                            document.activeElement.blur();
+                            $("#miModal").modal('hide');
+                            $('#clientes').DataTable().ajax.reload();
+                            $("#nombre").val("");
+                            $("#direccion").val(""),
+                            $("#telefono").val(""),
+                            $("#id_ruta").val("");
+                        }
+                    })
+
+                    
+
+                    
+                })
+                
             })
 
 
