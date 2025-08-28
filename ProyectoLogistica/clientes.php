@@ -60,6 +60,8 @@
 
         <!-- 1. jQuery primero -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- SweetAlert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Data tables -->
@@ -125,6 +127,54 @@
                 $('.btn-agregar-cliente').on('click',function(){
                     accion = "registrar";
                 })
+                $('#clientes, tbody').on('click','.btneditar',function(){
+                    let tabla = $('#clientes').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data();
+                    accion = "modificar";
+
+                    $("#id_cliente").val(data["id_cliente"]);
+                    $("#nombre").val(data["nombre"]);
+                    $("#direccion").val(data["direccion"]);
+                    $("#telefono").val(data["telefono"]);
+                    $("#id_ruta").val(data["id_ruta"]);
+                })
+                $('#clientes, tbody').on('click','.btneliminar',function(){
+                    let tabla = $('#clientes').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data()
+                    let id_cliente = data ['id_cliente'];
+
+                    let datos = new FormData();
+                    datos.append('id_cliente',id_cliente);
+                    datos.append('accion','eliminar');
+
+                    Swal.fire({
+                        title: "Confirmacion?",
+                        text: "Estas seguro que deseas eliminar este Chofer!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si",
+                        cancelButtonText: "No, cancelar!"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                                $.ajax({
+                                    url: "ajaxs/clientes.ajax.php",
+                                    method: "POST",
+                                    data:datos,
+                                    cache:false,
+                                    contentType: false,
+                                    processData: false,
+                                    success:function(respuesta){
+                                        console.log(respuesta);
+                                        $('#clientes').DataTable().ajax.reload();
+                                    }
+                                })
+                        }else{
+                        }
+                    });
+
+                })
                 $('#btnguardar').on('click',function(){
                     let nombre = $("#nombre").val(),
                         direccion = $("#direccion").val(),
@@ -161,10 +211,6 @@
                             $("#id_ruta").val("");
                         }
                     })
-
-                    
-
-                    
                 })
                 
             })
