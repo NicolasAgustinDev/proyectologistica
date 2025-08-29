@@ -103,7 +103,7 @@
                         }
                     ]
                 });
-                $('.btn-agregar-productos').on('click',function(){
+                $('.btn-agregar-producto').on('click',function(){
                     accion = "registrar";
                 })
                 $('#btnguardar').on('click',function(){
@@ -112,10 +112,11 @@
                         descripcion = $("#descripcion").val(),
                         stock = $("#stock").val(),
                         precio = $("#precio").val()
+
                     let datos = new FormData();
                     datos.append('id_producto',id_producto);
                     datos.append('nombre',nombre);
-                    datos.append('descripcion',descipcion);
+                    datos.append('descripcion',descripcion);
                     datos.append('stock',stock);
                     datos.append('precio',precio);
                     datos.append('accion',accion);
@@ -145,14 +146,54 @@
                 })
 
                 $('#productos, tbody').on('click','.btneditar',function(){
+                    let tabla = $('#productos').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data();
+                    accion = "modificar";
 
+                    $("#id_producto").val(data["id_producto"]);
+                    $("#nombre").val(data["nombre"]);
+                    $("#descripcion").val(data["descripcion"]);
+                    $("#stock").val(data["stock"]);
+                    $("#precio").val(data["precio"]);
                 })
 
                 $('#productos, tbody').on('click','.btneliminar',function(){
+                    let tabla = $('#productos').DataTable();
+                    let data =tabla.row($(this).parents('tr')).data()
+                    let id_producto = data ['id_producto'];
+
+                    let datos = new FormData();
+                    datos.append('id_producto',id_producto);
+                    datos.append('accion','eliminar');
+
+                    Swal.fire({
+                        title: "Confirmacion?",
+                        text: "Estas seguro que deseas eliminar este Chofer!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si",
+                        cancelButtonText: "No, cancelar!"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                                $.ajax({
+                                    url: "ajaxs/productos.ajax.php",
+                                    method: "POST",
+                                    data:datos,
+                                    cache:false,
+                                    contentType: false,
+                                    processData: false,
+                                    success:function(respuesta){
+                                        console.log(respuesta);
+                                        $('#productos').DataTable().ajax.reload();
+                                    }
+                                })
+                        }else{
+                        }
+                    });
                     
                 })
-
-
             })
 
         </script>
