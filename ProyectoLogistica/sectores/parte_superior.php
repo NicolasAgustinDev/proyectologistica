@@ -60,10 +60,11 @@ $hay_planes_disponibles = false;
         <div class="sidebar">
             <h5 class="text-center">Menú</h5>
             <h5><a href="viajes.php"><i class="fas fa-route me-2"></i> Viajes</a></h5>
+            <h5><a href="pedidos.php"><i class="fas fa-users me-2"></i> Pedidos</a></h5>
             <h5><a href="clientes.php"><i class="fas fa-users me-2"></i> Clientes</a></h5>
             <h5><a href="choferes.php"><i class="fas fa-id-card me-2"></i> Choferes</a></h5>
             <h5><a href="vehiculos.php"><i class="fas fa-truck me-2"></i> Vehículos</a></h5>
-            <h5><a href="productos.php"><i class="fa-solid fa-bottle-water"></i> Productos</a></h5>
+            <h5><a href="productos.php"><i class="fa-solid fa-bottle-water"></i>  Productos</a></h5>
             <!--<h5><a href="ejemplo.php"><i class="fas fa-tachometer-alt me-2"></i> Ejemplo</a></h5>-->
         </div>
 

@@ -1,6 +1,9 @@
 <?php require_once "sectores/parte_superior.php" ?>
-
-<h1>Viajes</h1>
+        <h1></h1>
+        <div>
+                
+        </div>
+        
 
         <!-- 1. jQuery primero -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
