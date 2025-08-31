@@ -1,16 +1,19 @@
+addEventListener("DOMContentLoaded", function () {
+  const btnMapa = document.getElementById("btnMapa");
+  const mapa = document.getElementById("mapaContenedor");
 
-
-addEventListener("DOMContentLoaded", ()=>{
-    btnMapa.addEventListener("click",mostrarMapa);
-
+  btnMapa.addEventListener("click", function () {
+    mapa.classList.toggle("d-none");
+    if (!mapa.classList.contains("d-none")) {
+      mapa.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 });
-function mostrarMapa(){
-    const mapa = document.getElementById('mapaContenedor');
-    mapa.style.display = mapa.style.display == 'none' ? 'block' : 'none';
 
-}
-//Si el mapa está oculto (display == "none"), lo cambia a "block" → lo muestra.
-//Si está visible (no es "none"), lo cambia a "none" → lo oculta.
+
+
+
+
 
 
 

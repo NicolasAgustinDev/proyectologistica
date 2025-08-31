@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="estilo/login.css">
   </head>
-  <body class="bg-light d-flex justify-content-center align-items-center vh-100">
+  <body class="d-flex justify-content-center align-items-center vh-100">
 
     <div class="card shadow p-4" style="width: 350px; background-color: #0a0e1a ;">
       <img src="imagenes/logo.png" alt="">

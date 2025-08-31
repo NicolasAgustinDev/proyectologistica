@@ -1,6 +1,8 @@
- body {
-      background-color: #858686;
-    }
+body {
+  background: url("../imagenes/fondo_4.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
 
     .card {
       background-color: #f4f5f7;
