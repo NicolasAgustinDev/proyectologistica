@@ -83,11 +83,11 @@
                 method: 'GET',
                 dataType: 'json',
                     success: function(data){
-                        const select = $('#cliente');
+                        const select = $('#id_cliente');
                         select.append('<option value="">Seleccione un Cliente</option>');
                         data.forEach(function (clientes) {
                             select.append(`<option value="${clientes.id_cliente}">${clientes.nombre} </option>`);
-                            console.log($("#clientes").val());
+                            console.log($("#id_clientes").val());
                         });
                     }
                 })

@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-<?php require_once "sectores/parte_superior.php" ?>
-        <h1></h1>
-        <div>
-                
-        </div>
-        
-=======
 <?php require_once "sectores/parte_superior.php"; ?>
-<?php require_once "sectores/parte_inferior.php"; ?>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -22,7 +13,6 @@
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
 <h1>Viajes</h1>
->>>>>>> c229db4e4b73d5bfc0ac83b773a74cf9f5be2980
 
 <div class="mb-3">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">

@@ -5,7 +5,7 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit();
 }
-require_once "conexion.php";
+require_once "modelo/conexion.php";
 
 $nombre_conductor = "nicolas";
 $apellido_conductor = "garcía";
@@ -79,12 +79,8 @@ $hay_planes_disponibles = false;
             <h5><a href="clientes.php"><i class="fas fa-users me-2"></i> Clientes</a></h5>
             <h5><a href="choferes.php"><i class="fas fa-id-card me-2"></i> Choferes</a></h5>
             <h5><a href="vehiculos.php"><i class="fas fa-truck me-2"></i> Vehículos</a></h5>
-<<<<<<< HEAD
             <h5><a href="productos.php"><i class="fa-solid fa-bottle-water"></i>  Productos</a></h5>
             <!--<h5><a href="ejemplo.php"><i class="fas fa-tachometer-alt me-2"></i> Ejemplo</a></h5>-->
-=======
-            <h5><a href="productos.php"><i class="fa-solid fa-bottle-water"></i> Productos</a></h5>
->>>>>>> c229db4e4b73d5bfc0ac83b773a74cf9f5be2980
         </div>
 
         <!-- Main Content -->
