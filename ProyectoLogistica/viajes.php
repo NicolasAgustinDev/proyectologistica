@@ -1,4 +1,4 @@
-<?php require_once "sectores/parte_superior.php"; ?>
+<?php require_once "sectores/parte_superior.php"?>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -23,6 +23,15 @@
         Asignar Viaje
     </button>
 </div>
+
+<div class="container mt-3 d-none" id="mapaContenedor">
+        <div class="ratio ratio-16x9">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.151703382456!2d-58.3831004!3d-34.8069437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc59ed2e3f4c1%3A0xf16a5c18eebcfc04!2sAlmirante%20Brown%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1627589099876!5m2!1ses!2sar"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
 
 <!-- Agregar Viaje -->
 <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="labelAgregar" aria-hidden="true">
@@ -147,4 +156,4 @@ $(document).ready(function(){
 });
 </script>
 
-
+<?php require_once "sectores/parte_inferior.php"; ?>
