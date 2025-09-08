@@ -5,8 +5,8 @@
             <select id="id_cliente" name="id_cliente" class="form-control" required></select>
         </div>
         <div>
-            <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" name="fecha" placeholder="Ingrese una fecha" required>
+            <label for="fecha_pedido">Fecha</label>
+            <input type="date" id="fecha_pedido" name="fecha_pedido" placeholder="Ingrese una fecha" required>
         </div>
 
         <div>
@@ -61,7 +61,7 @@
             </h3>
         </div>
         <div>
-            <button type="button" id="guardar" class="btn btn-primary">Guardar</button>
+            <button type="button" id="guardar" name="guardar" class="btn btn-primary">Guardar</button>
             <button type="button" class="btn btn-secondary">Cerrar</button>
         </div>
 
@@ -87,7 +87,7 @@
                         select.append('<option value="">Seleccione un Cliente</option>');
                         data.forEach(function (clientes) {
                             select.append(`<option value="${clientes.id_cliente}">${clientes.nombre} </option>`);
-                            console.log($("#id_clientes").val());
+                            console.log($("#id_cliente").val());
                         });
                     }
                 })
@@ -105,7 +105,7 @@
                         dataSrc:''
                     },
                     columns:[
-                        {data: 'id_producto'},
+                        {data:'id_producto'},
                         {data:'nombre'},
                         {data:'descripcion'},
                         {data:'stock'},
@@ -181,7 +181,7 @@
                     //Si no existe lo agregamos
                     if(!encontrado){
                         tablapedidos.row.add({
-                            id: producto.id_producto,
+                            id_producto: producto.id_producto,
                             nombre: producto.nombre,
                             cantidad: 1,
                             precio: producto.precio,
@@ -226,46 +226,74 @@
                 let detalles = [];
                 $('#guardar').on('click',function(){
                     let id_cliente = $("#id_cliente").val() ,
-                        fecha = $("#fecha").val() ,
+                        fecha_pedido = $("#fecha_pedido").val() ,
                         total = $("#TotalGeneral").val()
 
                     var datos = new FormData();
                     datos.append('id_cliente',id_cliente);
-                    datos.append('fecha',fecha);
+                    datos.append('fecha_pedido',fecha_pedido);
                     datos.append('total',total);
                     datos.append('detalles',JSON.stringify(detalles));
-                    if (id_cliente === '' || fecha  === '' || total  === '' || total == 0){
+                    if (id_cliente === '' || fecha_pedido  === '' || total  === '' || total == 0){
                         alert('Por favor, completa todos los campos.');
                         return;
                     }
+                    console.log(fecha_pedido);
                     $.ajax({
-                        url: "ajax/pedidos.ajax.php",
+                        url: "ajaxs/pedidos.ajax.php",
                         method: "POST",
                         data:datos,
                         cache:false,
                         contentType: false,
                         processData: false,
-                        success:function(id_cliente){
-                            id_cliente = JSON.parse(id_cliente);
+                        success:function(id_pedido){
+                            console.log("Respuesta cruda del PHP:", id_pedido);
+                            id_pedido = JSON.parse(id_pedido);
                             let totalDetalles = tablapedidos.rows().count();
                             let detallesGuardados = 0;
                             tablapedidos.rows().every(function(){
                                 let row = this.data();
                                 let detalle = new FormData();
-                                detalle.append("id_cliente",id_cliente);
-                                detalle.append("id_producto",row.id);
+                                detalle.append("id_pedido",id_pedido);
+                                detalle.append("id_producto",row.id_producto);
                                 detalle.append("cantidad",row.cantidad);
                                 detalle.append("precio_unitario",row.precio);
                                 detalle.append("subtotal",row.subtotal);
-
+                                $.ajax({
+                                    url: "ajaxs/pedidos.ajax.php?detalle=1",
+                                    method: "POST",
+                                    data: detalle,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success :function(respuesta){
+                                        detallesGuardados++;
+                                        if(detallesGuardados===totalDetalles){
+                                            console.log(id_pedido);
+                                            let form = $('<form>',{
+                                                action :'remito.php',
+                                                method:'POST',
+                                                target:'_blank',
+                                            }).append($('<input>',{
+                                                type: 'hidden',
+                                                name: 'id_pedido',
+                                                value:id_pedido
+                                            }));
+                                            $('body').append(form);
+                                            form.submit();
+                                            form.remove();
+                                        }
+                                    }
+                                })
                             })
-
+                            $("#id_cliente").val(""),
+                            $("#fecha_pedido").val(""),
+                            console.log($("#TotalGeneral").val(""));
+                            $("#TotalGeneralMostrar").text("0");
+                            tablapedidos.clear().draw();
                         }
                     })
                 })
-
             })
-            
         </script>
-
 <?php require_once "sectores/parte_inferior.php" ?>
