@@ -1,27 +1,23 @@
 <?php
 require_once "../modelo/viajes.modelo.php";
 
-class controladorviajes{
+class ControladorViajes{
 
-    static public function ctrAgregarViaje($destino, $nombre, $apellido, $licencia){
+    static public function ctrAgregarViaje($destino, $carga, $cliente, $fecha_salida){
         $tabla = "viajes";
 
-        $datos = array(
+        $datos = [
             "destino"  => $destino,
-            "nombre"   => $nombre,
-            "apellido" => $apellido,
-            "licencia" => $licencia
-        );
+            "carga"   => $carga,
+            "cliente" => $cliente,
+            "fecha_salida" => $fecha_salida
+        ];
 
-        $respuesta = modeloviajes::mdlAgregarViaje($tabla, $datos);
+        $respuesta = ModeloViajes::ModeloAgregarViaje($tabla, $datos);
 
-        return $respuesta;
-    }
-
-    static public function ctrMostrarViajes(){
-        $tabla = "viajes";
-        $respuesta = modeloviajes::mdlMostrarViajes($tabla);
         return $respuesta;
     }
 }
+
+ 
 ?>

@@ -2,19 +2,19 @@
 require_once("../controladores/viajes.controlador.php");
 require_once("../modelo/viajes.modelo.php");
 
-class Viajes{
+class AjaxViajes{
 
     public $destino;
-    public $nombre;
-    public $apellido;
-    public $licencia;
+    public $carga;
+    public $cliente;
+    public $fecha_salida;
 
-    public function AgregarViaje(){
+    public function ajaxAgregarViaje(){
         $respuesta = controladorviajes::ctrAgregarViaje(
             $this->destino,
-            $this->nombre,
-            $this->apellido,
-            $this->licencia
+            $this->carga,
+            $this->cliente,
+            $this->fecha_salida
         );
 
         echo json_encode($respuesta);
@@ -22,11 +22,11 @@ class Viajes{
 }
 
 if(isset($_POST["destino"])){
-    $viaje = new Viajes();
+    $viaje = new AjaxViajes();
     $viaje->destino  = $_POST["destino"];
-    $viaje->nombre   = $_POST["nombre"]; 
-    $viaje->apellido = $_POST["apellido"]; 
-    $viaje->licencia = $_POST["licencia"];
+    $viaje->carga   = $_POST["carga"]; 
+    $viaje->cliente = $_POST["cliente"]; 
+    $viaje->fecha_salida = $_POST["fecha_salida"];
     $viaje->ajaxAgregarViaje();
 }
 ?>
