@@ -4,7 +4,7 @@ require_once "../modelo/productos.modelo.php";
 
 class productos {
     public $id_producto;
-    public $nombre;
+    public $producto;
     public $descripcion;
     public $stock;
     public $precio;
@@ -14,11 +14,11 @@ class productos {
         echo json_encode($respuesta);
     }
     public function agregarproductos(){
-        $respuesta = controladorproductos::ctragregarproductos($this -> nombre,$this -> descripcion,$this -> stock,$this -> precio);
+        $respuesta = controladorproductos::ctragregarproductos($this -> producto,$this -> descripcion,$this -> stock,$this -> precio);
         echo json_encode($respuesta);
     }
     public function modificarproductos(){
-        $respuesta = controladorproductos::ctrmodificarproductos($this -> id_producto,$this -> nombre,$this -> descripcion,$this -> stock,$this -> precio);
+        $respuesta = controladorproductos::ctrmodificarproductos($this -> id_producto,$this -> producto,$this -> descripcion,$this -> stock,$this -> precio);
         echo json_encode($respuesta);
     }
     public function eliminarproductos(){
@@ -33,7 +33,7 @@ if(!isset($_POST["accion"])){
 }else{
     if($_POST["accion"]=="registrar"){
         $registrar = new productos();
-        $registrar -> nombre = $_POST["nombre"];
+        $registrar -> producto = $_POST["producto"];
         $registrar -> descripcion = $_POST["descripcion"];
         $registrar -> stock = $_POST["stock"];
         $registrar -> precio = $_POST["precio"];
@@ -42,7 +42,7 @@ if(!isset($_POST["accion"])){
     if($_POST["accion"]=="modificar"){
         $modificar = new productos();
         $modificar -> id_producto = $_POST["id_producto"];
-        $modificar -> nombre = $_POST["nombre"];
+        $modificar -> producto = $_POST["producto"];
         $modificar -> descripcion = $_POST["descripcion"];
         $modificar -> stock = $_POST["stock"];
         $modificar -> precio = $_POST["precio"];

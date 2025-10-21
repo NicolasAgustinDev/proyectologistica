@@ -1,4 +1,3 @@
-
 <?php require_once "sectores/parte_superior.php" ?>
         <!-- Page Content -->
         <div class="content-area">

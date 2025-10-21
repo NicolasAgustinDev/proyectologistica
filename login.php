@@ -12,7 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $stmt -> execute();
   if($stmt ->rowCount() == 1){
     $usuarioData = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($clave ==$usuarioData['clave']){
+    if($clave == $usuarioData['clave']){
       $_SESSION['usuario'] = $usuarioData['usuario'];
       header("Location: index.php");
       exit();

@@ -5,12 +5,12 @@ class controladorproductos {
         $respuesta = modeloproductos::mdlmostrarproductos();
         return $respuesta;
     }
-    static public function ctragregarproductos($nombre,$direccion,$telefono,$id_ruta){
-        $respuesta = modeloproductos::mdlagregarproductos($nombre,$direccion,$telefono,$id_ruta);
+    static public function ctragregarproductos($producto,$descripcion,$stock,$precio){
+        $respuesta = modeloproductos::mdlagregarproductos($producto,$descripcion,$stock,$precio);
         return $respuesta;
     }
-    static public function ctrmodificarproductos($id_producto,$nombre,$direccion,$telefono,$id_ruta){
-        $respuesta = modeloproductos::mdlmodificarproductos($id_producto,$nombre,$direccion,$telefono,$id_ruta);
+    static public function ctrmodificarproductos($id_producto,$producto,$descripcion,$stock,$precio){
+        $respuesta = modeloproductos::mdlmodificarproductos($id_producto,$producto,$descripcion,$stock,$precio);
         return $respuesta;
     }
     static public function ctreliminarproductos($id_producto){

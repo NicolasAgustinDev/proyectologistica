@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2025 a las 02:17:56
+-- Tiempo de generación: 20-10-2025 a las 16:42:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `choferes` (
 --
 
 INSERT INTO `choferes` (`id_chofer`, `nombre`, `apellido`, `telefono`, `licencia`) VALUES
-(1, 'Nicolas', 'Garcia', '1167258928', 'C1');
+(1, 'Nicolas', 'Garcia', '1167258928', 'C1'),
+(4, 'Damian', 'Bustos', '1190452910', 'C3');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,29 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre`, `direccion`, `telefono`, `id_ruta`) VALUES
-(1, 'Maxikiosco El Gallego', 'Av. Republica 2230 Longchamps', '1199237845', 1);
+(1, 'Maxikiosco El Gallego', 'Av. Republica 2230 Longchamps', '1199237845', 1),
+(3, 'Frigorico Offal', 'Maria Drago 2200', '1189340129', 1),
+(7, 'Frigorico El Faraon', 'Espora 1000 Burzaco', '1157361849', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `id_estado` int(11) NOT NULL,
+  `estado` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id_estado`, `estado`) VALUES
+(1, 'Pendiente'),
+(2, 'Asignado a viaje'),
+(3, 'Entregado');
 
 -- --------------------------------------------------------
 
@@ -73,8 +96,18 @@ CREATE TABLE `pedidos` (
   `id_pedido` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `fecha_pedido` datetime NOT NULL,
-  `estado` text NOT NULL
+  `total` int(11) NOT NULL,
+  `estado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id_pedido`, `id_cliente`, `fecha_pedido`, `total`, `estado`) VALUES
+(1, 1, '2025-10-18 00:00:00', 12000, NULL),
+(2, 1, '2025-10-18 00:00:00', 12000, NULL),
+(3, 1, '2025-10-18 00:00:00', 60000, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,8 +118,20 @@ CREATE TABLE `pedidos` (
 CREATE TABLE `pedidos_productos` (
   `id_pedido` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` int(11) NOT NULL,
+  `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos_productos`
+--
+
+INSERT INTO `pedidos_productos` (`id_pedido`, `id_producto`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
+(1, 7, 1, 12000, 12000),
+(2, 7, 1, 12000, 12000),
+(3, 1, 3, 12000, 36000),
+(3, 7, 2, 12000, 24000);
 
 -- --------------------------------------------------------
 
@@ -98,8 +143,17 @@ CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
   `nombre` text NOT NULL,
   `descripcion` text NOT NULL,
-  `peso` decimal(10,2) NOT NULL
+  `stock` int(11) NOT NULL,
+  `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `stock`, `precio`) VALUES
+(1, 'Pack de Cocacola', 'Paquete de Cocacola 8 unidades', 20, 12000),
+(7, 'Cajon de Cerveza', 'Cajon de Cerveza 12 Unidades', 20, 12000);
 
 -- --------------------------------------------------------
 
@@ -109,7 +163,7 @@ CREATE TABLE `productos` (
 
 CREATE TABLE `rutas` (
   `id_ruta` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `ruta` varchar(100) NOT NULL,
   `descripcion` text NOT NULL,
   `distancia_km` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -118,21 +172,10 @@ CREATE TABLE `rutas` (
 -- Volcado de datos para la tabla `rutas`
 --
 
-INSERT INTO `rutas` (`id_ruta`, `nombre`, `descripcion`, `distancia_km`) VALUES
-(1, 'Zona sur', 'Esta ruta abarca clientes de Longchamps, Burzaco y Adrogue', 500);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `rutas_paradas`
---
-
-CREATE TABLE `rutas_paradas` (
-  `id` int(11) NOT NULL,
-  `id_ruta` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `posicion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `rutas` (`id_ruta`, `ruta`, `descripcion`, `distancia_km`) VALUES
+(1, 'Zona sur', 'Esta ruta abarca clientes de Longchamps, Burzaco y Adrogue', 500),
+(2, 'Capital Federal', 'Esta ruta abarca clientes de capital como Belgrano, Constitucion y Parque Patricios', 300),
+(3, 'Zona Norte', 'Esta ruta abarca clientes de de zona norte como San Isidro, Vicente Lopez, San Fernando y Tigre', 400);
 
 -- --------------------------------------------------------
 
@@ -171,7 +214,8 @@ CREATE TABLE `vehiculos` (
 --
 
 INSERT INTO `vehiculos` (`id_vehiculo`, `patente`, `tipo`, `capacidad_kg`) VALUES
-(1, 'AH-486-AA', 'Iveco Tector 170 E Mercedes-Benz', 11.629);
+(1, 'AH-486-AA', 'Iveco Tector 170 E Mercedes-Benz', 11.000),
+(7, '	AH-486-AA', 'trac', 1.000);
 
 -- --------------------------------------------------------
 
@@ -185,10 +229,16 @@ CREATE TABLE `viajes` (
   `id_vehiculo` int(11) NOT NULL,
   `id_chofer` int(11) NOT NULL,
   `fecha_salida` datetime NOT NULL,
-  `fecha_llegada` datetime NOT NULL,
-  `estado` int(11) NOT NULL,
-  `observaciones` text NOT NULL
+  `fecha_llegada` datetime DEFAULT NULL,
+  `observaciones` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `viajes`
+--
+
+INSERT INTO `viajes` (`id_viaje`, `id_ruta`, `id_vehiculo`, `id_chofer`, `fecha_salida`, `fecha_llegada`, `observaciones`) VALUES
+(1, 2, 7, 4, '2025-10-20 02:50:51', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -222,11 +272,18 @@ ALTER TABLE `clientes`
   ADD KEY `ruta` (`id_ruta`);
 
 --
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`id_estado`);
+
+--
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id_pedido`),
-  ADD KEY `id_cliente` (`id_cliente`);
+  ADD KEY `id_cliente` (`id_cliente`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `pedidos_productos`
@@ -246,14 +303,6 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `rutas`
   ADD PRIMARY KEY (`id_ruta`);
-
---
--- Indices de la tabla `rutas_paradas`
---
-ALTER TABLE `rutas_paradas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `ruta2` (`id_ruta`),
-  ADD KEY `cliente` (`id_cliente`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -293,37 +342,37 @@ ALTER TABLE `viaje_productos`
 -- AUTO_INCREMENT de la tabla `choferes`
 --
 ALTER TABLE `choferes`
-  MODIFY `id_chofer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_chofer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `rutas`
 --
 ALTER TABLE `rutas`
-  MODIFY `id_ruta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `rutas_paradas`
---
-ALTER TABLE `rutas_paradas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ruta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -335,13 +384,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `viajes`
 --
 ALTER TABLE `viajes`
-  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -357,6 +406,7 @@ ALTER TABLE `clientes`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
+  ADD CONSTRAINT `estado` FOREIGN KEY (`estado`) REFERENCES `estado` (`id_estado`),
   ADD CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
 
 --
@@ -365,13 +415,6 @@ ALTER TABLE `pedidos`
 ALTER TABLE `pedidos_productos`
   ADD CONSTRAINT `pedidos` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
   ADD CONSTRAINT `producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
-
---
--- Filtros para la tabla `rutas_paradas`
---
-ALTER TABLE `rutas_paradas`
-  ADD CONSTRAINT `cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
-  ADD CONSTRAINT `ruta2` FOREIGN KEY (`id_ruta`) REFERENCES `rutas` (`id_ruta`);
 
 --
 -- Filtros para la tabla `viajes`

@@ -6,9 +6,9 @@ class modeloproductos{
         $st -> execute();
         return $st -> fetchAll(PDO::FETCH_ASSOC);
     }
-    static public function mdlagregarproductos($nombre,$descripcion,$stock,$precio){
-        $st = conexion::conectar() -> prepare("INSERT INTO productos(nombre,descripcion,stock,precio) VALUES(:nombre,:descripcion,:stock,:precio)");
-        $st -> bindParam(":nombre",$nombre,PDO::PARAM_STR);
+    static public function mdlagregarproductos($producto,$descripcion,$stock,$precio){
+        $st = conexion::conectar() -> prepare("INSERT INTO productos(producto,descripcion,stock,precio) VALUES(:producto,:descripcion,:stock,:precio)");
+        $st -> bindParam(":producto",$producto,PDO::PARAM_STR);
         $st -> bindParam(":descripcion",$descripcion,PDO::PARAM_STR);
         $st -> bindParam(":stock",$stock,PDO::PARAM_INT);
         $st -> bindParam(":precio",$precio,PDO::PARAM_INT);
@@ -19,10 +19,10 @@ class modeloproductos{
         }
     }
 
-    static public function mdlmodificarproductos($id_producto,$nombre,$descripcion,$stock,$precio){
-        $st = conexion::conectar() -> prepare("UPDATE productos SET nombre=:nombre,descripcion=:descripcion,stock=:stock,precio=:precio WHERE id_producto=:id_producto");
+    static public function mdlmodificarproductos($id_producto,$producto,$descripcion,$stock,$precio){
+        $st = conexion::conectar() -> prepare("UPDATE productos SET producto=:producto,descripcion=:descripcion,stock=:stock,precio=:precio WHERE id_producto=:id_producto");
         $st -> bindParam(":id_producto",$id_producto,PDO::PARAM_INT);
-        $st -> bindParam(":nombre",$nombre,PDO::PARAM_STR);
+        $st -> bindParam(":producto",$producto,PDO::PARAM_STR);
         $st -> bindParam(":descripcion",$descripcion,PDO::PARAM_STR);
         $st -> bindParam(":stock",$stock,PDO::PARAM_INT);
         $st -> bindParam(":precio",$precio,PDO::PARAM_INT);

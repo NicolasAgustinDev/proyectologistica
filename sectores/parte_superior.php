@@ -5,7 +5,8 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit();
 }
-require_once "modelo/conexion.php";
+require_once __DIR__ . '/../modelo/conexion.php';
+//require_once "modelo/conexion.php";
 
 $nombre_conductor = "nicolas";
 $apellido_conductor = "garcía";
@@ -21,9 +22,8 @@ $hay_planes_disponibles = false;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/2.3.3/css/dataTables.dataTables.min.css">  
-    <link rel="stylesheet" href="estilo/styles.css">
+    <link rel="stylesheet" href="/ejercicios/Proyectologistica/frontend/estilo/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
     
     <!-- Pone icono mas gruesos -->
     <style>
@@ -42,8 +42,8 @@ $hay_planes_disponibles = false;
             <button id="toggleSidebar" class="btn btn-outline-light me-3 d-lg-inline-block d-none">☰</button>
 
             <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center" href="index.php">
-                <img src="imagenes/logo.png" alt="Logo" style="height: 40px;" class="me-2">
+            <a class="navbar-brand d-flex align-items-center" href="/ejercicios/Proyectologistica/frontend/index.php">
+                <img src="/ejercicios/Proyectologistica/frontend/imagenes/logo.png" alt="Logo" style="height: 40px;" class="me-2">
                 <span>Logistic Company</span>
             </a>
 
@@ -92,12 +92,12 @@ $hay_planes_disponibles = false;
         <!-- Sidebar -->
         <div class="sidebar">
              <h5 class="text-center">Menú</h5>
-            <h5><a href="viajes.php"><i class="fas fa-route me-3"></i><span class="link-text">Viajes</span></a></h5>
-            <h5><a href="pedidos.php"><i class="fas fa-clipboard-list me-3"></i><span class="link-text">Pedidos</span></a></h5>
-            <h5><a href="clientes.php"><i class="fas fa-users me-3"></i><span class="link-text">Clientes</span></a></h5>
-            <h5><a href="choferes.php"><i class="fas fa-id-card me-3"></i><span class="link-text">Choferes</span></a></h5>
-            <h5><a href="vehiculos.php"><i class="fas fa-truck me-3"></i><span class="link-text">Vehículos</span></a></h5>
-            <h5><a href="productos.php"><i class="fas fa-box me-3"></i><span class="link-text">Productos</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/viajes/viajes.php"><i class="fas fa-route me-3"></i><span class="link-text">Viajes</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/pedidos/pedidos.php"><i class="fas fa-clipboard-list me-3"></i><span class="link-text">Pedidos</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/clientes/clientes.php"><i class="fas fa-users me-3"></i><span class="link-text">Clientes</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/choferes/choferes.php"><i class="fas fa-id-card me-3"></i><span class="link-text">Choferes</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/vehiculos/vehiculos.php"><i class="fas fa-truck me-3"></i><span class="link-text">Vehículos</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/productos/productos.php"><i class="fas fa-box me-3"></i><span class="link-text">Productos</span></a></h5>
             
             <!--<h5><a href="ejemplo.php"><i class="fas fa-tachometer-alt me-2"></i> Ejemplo</a></h5>-->
         </div>
