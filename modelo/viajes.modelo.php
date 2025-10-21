@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD:modelo/viajes.modelo.php
 require_once "conexion.php";
 class modeloviajes{
     static public function mdlmostrarpedidos(){
@@ -11,8 +10,6 @@ class modeloviajes{
                                     INNER JOIN productos ON pedidos_productos.id_producto=productos.id_producto;");
         $st -> execute();
         return $st -> fetchAll(PDO::FETCH_ASSOC);
-
-
     }
     static public function mdlagregarviaje($id_ruta,$id_vehiculo,$id_chofer,$fecha_salida){
         $conexion = conexion::conectar();
@@ -44,35 +41,3 @@ class modeloviajes{
 }
 
 ?>
-=======
-require_once "conexion.php"; 
-
-class ModeloViajes {
-
-  //Agregar Viaje
-    static public function ModeloAgregarViaje($tabla, $datos) {
-
-        try {
-            $stmt = Conexion::conectar()->prepare("
-                INSERT INTO $tabla (destino, carga, cliente, fecha_salida)
-                VALUES (:destino, :carga, :cliente, :fecha_salida)
-            ");
-
-            $stmt->bindParam(":destino",  $datos["destino"],  PDO::PARAM_STR);
-            $stmt->bindParam(":carga",   $datos["carga"],   PDO::PARAM_STR);
-            $stmt->bindParam(":cliente", $datos["cliente"], PDO::PARAM_STR);
-            $stmt->bindParam(":fecha_salida", $datos["fecha_salida"], PDO::PARAM_STR);
-
-            return $stmt->execute() ? "ok" : "error";
-
-        } catch (PDOException $e) {
-            // Podés registrar errores si querés depurar
-            error_log("Error en modeloAgregarViaje: " . $e->getMessage());
-            return "error";
-        }
-    }
-
-    
-}
-?>
->>>>>>> c8f683ac5a7aa9f06e17e02c5b6fcf4157b3b46d:ProyectoLogistica/modelo/viajes.modelo.php
