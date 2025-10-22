@@ -58,6 +58,7 @@
         <table id="viajes" class="display" style="width:100%">
             <thead>
                 <tr>
+                    <th>Id Pedido</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Precio Unitario</th>

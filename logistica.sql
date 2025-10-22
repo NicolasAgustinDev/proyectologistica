@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2025 a las 16:42:33
+-- Tiempo de generación: 22-10-2025 a las 22:45:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -105,9 +105,8 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id_pedido`, `id_cliente`, `fecha_pedido`, `total`, `estado`) VALUES
-(1, 1, '2025-10-18 00:00:00', 12000, NULL),
-(2, 1, '2025-10-18 00:00:00', 12000, NULL),
-(3, 1, '2025-10-18 00:00:00', 60000, NULL);
+(6, 1, '2025-10-21 00:00:00', 43000, NULL),
+(7, 3, '2025-10-22 00:00:00', 129000, NULL);
 
 -- --------------------------------------------------------
 
@@ -116,6 +115,7 @@ INSERT INTO `pedidos` (`id_pedido`, `id_cliente`, `fecha_pedido`, `total`, `esta
 --
 
 CREATE TABLE `pedidos_productos` (
+  `pedidos_detalle` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
@@ -127,11 +127,9 @@ CREATE TABLE `pedidos_productos` (
 -- Volcado de datos para la tabla `pedidos_productos`
 --
 
-INSERT INTO `pedidos_productos` (`id_pedido`, `id_producto`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
-(1, 7, 1, 12000, 12000),
-(2, 7, 1, 12000, 12000),
-(3, 1, 3, 12000, 36000),
-(3, 7, 2, 12000, 24000);
+INSERT INTO `pedidos_productos` (`pedidos_detalle`, `id_pedido`, `id_producto`, `cantidad`, `precio_unitario`, `subtotal`) VALUES
+(8, 6, 9, 1, 43000, 43000),
+(9, 7, 9, 3, 43000, 129000);
 
 -- --------------------------------------------------------
 
@@ -141,7 +139,7 @@ INSERT INTO `pedidos_productos` (`id_pedido`, `id_producto`, `cantidad`, `precio
 
 CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
-  `nombre` text NOT NULL,
+  `producto` text NOT NULL,
   `descripcion` text NOT NULL,
   `stock` int(11) NOT NULL,
   `precio` int(11) NOT NULL
@@ -151,9 +149,8 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `stock`, `precio`) VALUES
-(1, 'Pack de Cocacola', 'Paquete de Cocacola 8 unidades', 20, 12000),
-(7, 'Cajon de Cerveza', 'Cajon de Cerveza 12 Unidades', 20, 12000);
+INSERT INTO `productos` (`id_producto`, `producto`, `descripcion`, `stock`, `precio`) VALUES
+(9, 'Pack Coca Cola ', 'Paquete de Coca cola 2,25L 8 unidades', 20, 43000);
 
 -- --------------------------------------------------------
 
@@ -289,6 +286,7 @@ ALTER TABLE `pedidos`
 -- Indices de la tabla `pedidos_productos`
 --
 ALTER TABLE `pedidos_productos`
+  ADD PRIMARY KEY (`pedidos_detalle`),
   ADD KEY `pedidos` (`id_pedido`),
   ADD KEY `producto` (`id_producto`);
 
@@ -360,13 +358,19 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `pedidos_productos`
+--
+ALTER TABLE `pedidos_productos`
+  MODIFY `pedidos_detalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `rutas`

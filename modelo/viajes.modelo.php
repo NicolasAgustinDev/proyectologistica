@@ -3,7 +3,8 @@ require_once "conexion.php";
 class modeloviajes{
     static public function mdlmostrarpedidos(){
         $conexion = conexion::conectar();
-        $st = $conexion -> prepare("SELECT pedidos.id_pedido,clientes.nombre,productos.producto,pedidos_productos.cantidad 
+        $st = $conexion -> prepare("SELECT pedidos.id_pedido,clientes.nombre,productos.producto,pedidos_productos.cantidad,
+                                    clientes.direccion,productos.precio,pedidos.total
                                     FROM pedidos
                                     INNER JOIN pedidos_productos ON pedidos.id_pedido=pedidos_productos.id_pedido
                                     INNER JOIN clientes ON pedidos.id_cliente=clientes.id_cliente
