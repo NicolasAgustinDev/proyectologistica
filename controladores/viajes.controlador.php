@@ -12,7 +12,7 @@ class controladorviajes{
     }
     static public function ctrdetalleviaje($id_viaje,$id_pedido){
         $respuesta = modeloviajes::mdlagregardetalleviaje($id_viaje,$id_pedido);
-        return $respuesta; 
+        return $respuesta;
     }
 }
 ?>

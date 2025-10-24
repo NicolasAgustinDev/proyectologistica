@@ -33,7 +33,6 @@ $hay_planes_disponibles = false;
       height: 400px;
     }
   </style>
-    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -93,6 +92,7 @@ $hay_planes_disponibles = false;
         <div class="sidebar">
              <h5 class="text-center">Menú</h5>
             <h5><a href="/ejercicios/Proyectologistica/frontend/viajes/viajes.php"><i class="fas fa-route me-3"></i><span class="link-text">Viajes</span></a></h5>
+            <h5><a href="/ejercicios/Proyectologistica/frontend/historial_viajes/historial_viajes.php"><i class="fas fa-route me-3"></i><span class="link-text">Historial Viajes</span></a></h5>
             <h5><a href="/ejercicios/Proyectologistica/frontend/pedidos/pedidos.php"><i class="fas fa-clipboard-list me-3"></i><span class="link-text">Pedidos</span></a></h5>
             <h5><a href="/ejercicios/Proyectologistica/frontend/clientes/clientes.php"><i class="fas fa-users me-3"></i><span class="link-text">Clientes</span></a></h5>
             <h5><a href="/ejercicios/Proyectologistica/frontend/choferes/choferes.php"><i class="fas fa-id-card me-3"></i><span class="link-text">Choferes</span></a></h5>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2025 a las 22:45:49
+-- Tiempo de generación: 23-10-2025 a las 21:39:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -244,11 +244,9 @@ INSERT INTO `viajes` (`id_viaje`, `id_ruta`, `id_vehiculo`, `id_chofer`, `fecha_
 --
 
 CREATE TABLE `viaje_productos` (
+  `id_viaje_detalle` int(11) NOT NULL,
   `id_viaje` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `id_pedido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -327,10 +325,9 @@ ALTER TABLE `viajes`
 -- Indices de la tabla `viaje_productos`
 --
 ALTER TABLE `viaje_productos`
+  ADD PRIMARY KEY (`id_viaje_detalle`),
   ADD KEY `viaje` (`id_viaje`),
-  ADD KEY `pedido` (`id_pedido`),
-  ADD KEY `id_producto` (`id_producto`),
-  ADD KEY `cliente99` (`id_cliente`);
+  ADD KEY `pedido` (`id_pedido`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -397,6 +394,12 @@ ALTER TABLE `viajes`
   MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `viaje_productos`
+--
+ALTER TABLE `viaje_productos`
+  MODIFY `id_viaje_detalle` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -432,8 +435,6 @@ ALTER TABLE `viajes`
 -- Filtros para la tabla `viaje_productos`
 --
 ALTER TABLE `viaje_productos`
-  ADD CONSTRAINT `cliente99` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
-  ADD CONSTRAINT `id_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
   ADD CONSTRAINT `pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
   ADD CONSTRAINT `viaje` FOREIGN KEY (`id_viaje`) REFERENCES `viajes` (`id_viaje`);
 COMMIT;

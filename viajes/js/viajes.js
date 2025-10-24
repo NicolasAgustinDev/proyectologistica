@@ -104,10 +104,114 @@ $(document).ready(function(){
             showConfirmButton: false
         });
     });
-
     $('#viajes tbody').on('click','.btneliminar',function(){
         tablaviajes.row($(this).parents('tr')).remove().draw();
     })
+
+    $('#guardar').on('click',function(){
+        let datosviaje= {
+            id_ruta : $('#id_ruta').val(),
+            id_vehiculo : $('#id_vehiculo').val(),
+            id_chofer : $('#id_chofer').val(),
+            fecha_salida : $('#fecha_salida').val()
+        };
+        // Obtener los pedidos de la tabla #viajes
+        let pedidos = tablaviajes.rows().data().toArray();
+
+        if (pedidos.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay pedidos',
+                text: 'Agregá al menos un pedido al viaje antes de guardar.',
+            });
+            return;
+        }
+        // Enviar los datos al backend
+        $.ajax({
+            url: '../ajaxs/viajes.ajax.php',
+            type: 'POST',
+            data: datosviaje,
+            // En el success del POST para crear el viaje:
+            success: function(response) {
+                let res = (typeof response === 'object') ? response : JSON.parse(response);
+                if (res && res.id_viaje) {
+                    const id_viaje = res.id_viaje;
+                    // esperar a que terminen todas las llamadas de detalle
+                    guardarDetalleViaje(id_viaje, pedidos)
+                    .then(() => {
+                        Swal.fire({ icon:'success', title:'Viaje guardado', timer:1500, showConfirmButton:false });
+                        // abrir remito con el id correcto
+                        window.open(`remito.php?id_viaje=${encodeURIComponent(id_viaje)}`, '_blank');
+                        // limpiar
+                        $('#id_ruta, #id_vehiculo, #id_chofer, #fecha_salida').val('');
+                        tablaviajes.clear().draw();
+                    })
+                    .catch(() => {
+                        Swal.fire('Error', 'No se pudieron guardar todos los detalles', 'error');
+                    });
+                } else {
+                    Swal.fire('Error', 'No se pudo guardar el viaje', 'error');
+                }
+            }
+            /*
+            success: function(response) {
+                let res = JSON.parse(response);
+                if (res.id_viaje) {
+                    // Una vez creado el viaje, guardar los pedidos
+                    guardarDetalleViaje(res.id_viaje, pedidos);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo guardar el viaje.',
+                    });
+                }
+            }*/
+        });
+    });
+    
+    function guardarDetalleViaje(id_viaje, pedidos) {
+        // Recorremos los pedidos y los enviamos uno por uno
+        const promesas = pedidos.map(p => {
+            return $.ajax({
+                url: '../ajaxs/viajes.ajax.php?detalle=1',
+                type: 'POST',
+                data: { id_viaje: id_viaje, id_pedido: p.id_pedido }
+            });
+        });
+        // Promise.all devolverá una promesa que se resuelve cuando todas las promesas se cumplan,
+        // o rechaza si alguna falla.
+        return Promise.all(promesas);
+        /*
+        pedidos.forEach(p => {
+            $.ajax({
+                url: '../ajaxs/viajes.ajax.php?detalle=1',
+                type: 'POST',
+                data: {
+                    id_viaje: id_viaje,
+                    id_pedido: p.id_pedido
+                }
+            });
+        });
+        */
+        Swal.fire({
+            icon: 'success',
+            title: 'Viaje guardado correctamente',
+            text: 'El viaje y sus pedidos fueron registrados.',
+            timer: 2000,
+            showConfirmButton: false
+        });
+        // 👇 Esperamos 2 segundos y abrimos el remito
+        /*
+        setTimeout(function() {
+            window.open(`remito.php?id_viaje=${res.id_viaje}`, '_blank');
+        }, 2000);
+        */
+        // Limpiar formulario y tablas si querés
+        $('#id_ruta, #id_vehiculo, #id_chofer, #fecha_salida').val('');
+        tablaviajes.clear().draw();
+    }
+
     cargarRutas();
     function cargarRutas(){
         $.ajax({
